@@ -1,0 +1,24 @@
+{
+  "name": "khanhicetea/slimfit",
+  "description": "PHP Web Framework based on Slim 3",
+  "minimum-stability": "stable",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "KhanhIceTea",
+      "email": "khanhicetea@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.5.0",
+    "slim/slim": "^3.3",
+    "monolog/monolog": "^1.18",
+    "vlucas/phpdotenv": "^2.2",
+    "robmorgan/phinx": "^0.5"
+  },
+  "require-dev": {
+    "maximebf/debugbar": "1.*"
+  },
+  "autoload": {
+  }
+}
