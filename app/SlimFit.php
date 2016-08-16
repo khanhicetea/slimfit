@@ -2,6 +2,7 @@
 namespace App;
 
 use Slim\App as SlimApp;
+use Pimple\ServiceProviderInterface;
 
 class SlimFit extends SlimApp {
     private static $instance = null;
@@ -14,11 +15,16 @@ class SlimFit extends SlimApp {
         return static::$instance;
     }
 
+    public static function getInstance() {
+        return static::$instance;
+    }
+
     public static function getKey($key = null) {
-        return $key ? static::$instance[$key] : static::$instance;
+        $instance = static::$instance;
+        return $key ? $instance->getContainer()->get($key) : $instance->getContainer();
     }
 
     public function register(ServiceProviderInterface $service) {
-        $service->register($this);
+        $service->register($this->getContainer());
     }
 }

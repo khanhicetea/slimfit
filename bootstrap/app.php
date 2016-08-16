@@ -24,6 +24,7 @@ $app = App\SlimFit::init([
 
 // Register service providers
 $service_providers = [
+    App\ServiceProvider\HttpKernel::class,
 ];
 
 foreach ($service_providers as $service_provider) {
