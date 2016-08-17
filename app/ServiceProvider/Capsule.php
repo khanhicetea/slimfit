@@ -8,8 +8,9 @@ use Illuminate\Events\Dispatcher;
 use Illuminate\Container\Container;
 use Illuminate\Cache\CacheManager;
 use Illuminate\Database\Capsule\Manager;
+use App\DB;
 
-class Eloquent implements ServiceProviderInterface
+class Capsule implements ServiceProviderInterface
 {
     /**
      * Register the Capsule service.
@@ -48,7 +49,7 @@ class Eloquent implements ServiceProviderInterface
         $container['capsule.eloquent'] = true;
 
         $container['capsule'] = function ($container) {
-            $capsule = new Manager($container['capsule.container']);
+            $capsule = new DB($container['capsule.container']);
             $capsule->setEventDispatcher($container['capsule.dispatcher']);
 
             if (isset($container['capsule.cache_manager']) && isset($container['capsule.cache'])) {
@@ -83,7 +84,7 @@ class Eloquent implements ServiceProviderInterface
             $capsule->setAsGlobal();
 
             $container['db'] = $container->factory(function ($c) {
-                return Manager::connection();
+                return DB::connection();
             });
 
             return $capsule;

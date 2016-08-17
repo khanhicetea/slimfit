@@ -3,4 +3,4 @@
 $app = app();
 
 $app->get('/', 'Home:hello');
-$app->get('/basic', 'Home:hello')->setName('basic');
+$app->get('/hello/{name}', 'Home:basic')->setName('hello');

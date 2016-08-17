@@ -1,0 +1,11 @@
+#!/usr/bin/env php
+<?php
+set_time_limit(0);
+$app = require (__DIR__.'/bootstrap/app.php');
+
+$app->register(new App\ServiceProvider\Console(), app('config.console'));
+$console_application = $app->getContainer()->get('console');
+foreach (app('console.commands') as $cmd) {
+    $console_application->add(new $cmd());
+}
+$console_application->run();

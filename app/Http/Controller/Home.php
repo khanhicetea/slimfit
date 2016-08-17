@@ -4,8 +4,11 @@ namespace App\Http\Controller;
 use App\Model\Admin;
 
 class Home extends Base {
-    public function hello($req, $res, $args) {
-        $admin = Admin::find(1);
-        return $this->view->render($res, 'hello.html', ['admin' => $admin]);
+    protected function hello($args) {
+        return $this->redirect('hello', ['name' => 'SlimFit']);
+    }
+
+    protected function basic($args) {
+        return $this->render('hello.html', ['name' => $args['name']]);
     }
 }

@@ -28,7 +28,8 @@ $app = App\SlimFit::init([
 $service_providers = [
     App\ServiceProvider\HttpKernel::class => [],
     App\ServiceProvider\Twig::class => [],
-    App\ServiceProvider\Eloquent::class => app('config.database'),
+    App\ServiceProvider\Capsule::class => app('config.database'),
+    App\ServiceProvider\DebugBar::class => [],
 ];
 
 foreach ($service_providers as $service_provider => $opts) {

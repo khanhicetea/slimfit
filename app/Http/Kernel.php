@@ -2,28 +2,49 @@
 namespace App\Http;
 
 use Psr7Middlewares\Middleware;
-use App\Http\Middleware\LanguageNegotiator;
+use Zend\Diactoros\Stream;
 
 class Kernel {
     protected $container;
     protected $booted = false;
     protected $route_path;
+    protected $app_middlewares;
+    protected $route_middlewares;
 
     public function __construct($container) {
         $this->container = $container;
         $this->route_path = $container['kernel.route_path'];
-    }
+        
+        Middleware::setStreamFactory(function ($file, $mode) {
+            return new Stream($file, $mode);
+        });
 
-    public function getAppMiddlewares() {
-        return [
+        $this->defaultAppMiddlewares();
+        $this->defaultRouteMiddlewares();
+    }
+    
+    public function defaultAppMiddlewares() {
+        $this->app_middlewares = [
             Middleware::responseTime(),
         ];
     }
 
-    public function getRouteMiddlewares() {
-        return [];
+    public function defaultRouteMiddlewares() {
+        $this->route_middlewares = [];
     }
 
+    public function setRouteMiddleware($key, $middleware) {
+        $this->route_middlewares[$key] = $middleware;
+    }
+
+    public function appendAppMiddleware($middleware) {
+        $this->app_middlewares[] = $middleware;
+    }
+
+    public function prependAppMiddleware($middleware) {
+        array_unshift($this->app_middlewares, $middleware);
+    }
+    
     public function boot() {
         if ($this->booted) {
             return false;
@@ -36,14 +57,12 @@ class Kernel {
 
     private function addMiddlewares() {
         $app = app();
-        $app_middlewares = $this->getAppMiddlewares();
-        $route_middlewares = $this->getRouteMiddlewares();
 
-        foreach ($app_middlewares as $middleware) {
+        foreach ($this->app_middlewares as $middleware) {
             $app->add($middleware);
         }
 
-        foreach ($route_middlewares as $name => $middleware) {
+        foreach ($this->route_middlewares as $name => $middleware) {
             $this->container['mw_'.$name] = function($container) use ($middleware) {
                 return $middleware;
             };

@@ -2,6 +2,7 @@
 namespace App\Console;
 
 use Symfony\Component\Console\Application as ConsoleApplication;
+use Pimple\Container;
 
 class Application extends ConsoleApplication {
     private $container;
