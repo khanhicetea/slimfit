@@ -118,6 +118,8 @@ composer.phar
 # composer.lock
 tags
 
+.env
+
 db/migrations/**
 !db/migration/.gitkeep
 db/seeds/**
