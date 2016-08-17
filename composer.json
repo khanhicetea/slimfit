@@ -15,7 +15,12 @@
     "monolog/monolog": "^1.21",
     "vlucas/phpdotenv": "^2.3",
     "robmorgan/phinx": "^0.6",
-    "oscarotero/psr7-middlewares": "^3.16"
+    "oscarotero/psr7-middlewares": "^3.16",
+    "schnittstabil/psr7-middleware-stack": "^3.0",
+    "willdurand/negotiation": "^2.0",
+    "slim/twig-view": "^2.1",
+    "illuminate/events": "~5.2",
+    "illuminate/database": "~5.2"
   },
   "require-dev": {
     "maximebf/debugbar": "^1.11"

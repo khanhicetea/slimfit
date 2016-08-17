@@ -12,9 +12,21 @@ if (!function_exists('app_path')) {
     }
 }
 
+if (!function_exists('config_path')) {
+    function config_path($path = null) {
+        return realpath(app('config_path').'/'.ltrim($path, '/'));
+    }
+}
+
 if (!function_exists('storage_path')) {
     function storage_path($path = null) {
         return realpath(app('storage_path').'/'.ltrim($path, '/'));
+    }
+}
+
+if (!function_exists('resources_path')) {
+    function resources_path($path = null) {
+        return realpath(app('resources_path').'/'.ltrim($path, '/'));
     }
 }
 

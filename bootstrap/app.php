@@ -18,17 +18,21 @@ $app = App\SlimFit::init([
     'autoloader' => $autoloader,
     'root_path' => dirname(__DIR__),
     'app_path' => realpath(__DIR__.'/../app'),
+    'config_path' => realpath(__DIR__.'/../config'),
     'storage_path' => realpath(__DIR__.'/../storage'),
+    'resources_path' => realpath(__DIR__.'/../resources'),
     'public_path' => realpath(__DIR__.'/../public'),
 ]);
 
 // Register service providers
 $service_providers = [
-    App\ServiceProvider\HttpKernel::class,
+    App\ServiceProvider\HttpKernel::class => [],
+    App\ServiceProvider\Twig::class => [],
+    App\ServiceProvider\Eloquent::class => app('config.database'),
 ];
 
-foreach ($service_providers as $service_provider) {
-    $app->register(new $service_provider());
+foreach ($service_providers as $service_provider => $opts) {
+    $app->register(new $service_provider(), $opts);
 }
 
 return $app;

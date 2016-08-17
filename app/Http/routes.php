@@ -2,6 +2,5 @@
 
 $app = app();
 
-$app->get('/', function() {
-    return '<h1>Hello world !</h1>';
-});
+$app->get('/', 'Home:hello');
+$app->get('/basic', 'Home:hello')->setName('basic');
