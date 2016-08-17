@@ -121,7 +121,7 @@ tags
 .env
 
 db/migrations/**
-!db/migration/.gitkeep
+!db/migrations/.gitkeep
 db/seeds/**
 !db/seeds/.gitkeep
 
