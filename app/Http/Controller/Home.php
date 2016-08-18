@@ -4,7 +4,7 @@ namespace App\Http\Controller;
 use App\Model\Admin;
 
 class Home extends Base {
-    protected function home($args) {
+    protected function home() {
         return $this->redirect('hello', ['name' => 'SlimFit']);
     }
 
