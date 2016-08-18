@@ -27,9 +27,9 @@ abstract class Base {
     }
 
     public function __call($method, $args) {
-        $this->req = $args[0];
-        $this->res = $args[1];
+        $this->req = array_shift($args);
+        $this->res = array_shift($args);
 
-        return $this->$method($args[2]);
+        return call_user_func_array([$this, $method], $args);
     }
 }

@@ -8,7 +8,7 @@ class Home extends Base {
         return $this->redirect('hello', ['name' => 'SlimFit']);
     }
 
-    protected function hello($args) {
-        return $this->render('hello.html', ['name' => $args['name']]);
+    protected function hello($name) {
+        return $this->render('hello.htm', ['name' => $name]);
     }
 }

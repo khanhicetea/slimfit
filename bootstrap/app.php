@@ -8,6 +8,7 @@ $dotenv->load();
 
 $app = App\SlimFit::init([
     'settings' => [
+        'determineRouteBeforeAppMiddleware' => false,
         'displayErrorDetails' => env('DEBUG', false),
         'logger' => [
             'name' => env('APP_NAME', 'slimfit'),
@@ -26,10 +27,15 @@ $app = App\SlimFit::init([
 
 // Register service providers
 $service_providers = [
+    App\ServiceProvider\Monolog::class => [],
     App\ServiceProvider\HttpKernel::class => [],
-    App\ServiceProvider\Twig::class => [],
-    App\ServiceProvider\Capsule::class => app('config.database'),
-    App\ServiceProvider\DebugBar::class => [],
+    App\ServiceProvider\Twig::class => ['view.cache' => env('TWIG_CACHE', false)],
+
+    /* Eloquent */
+    // App\ServiceProvider\Capsule::class => app('config.database'),
+
+    /* DebugBar */
+    // App\ServiceProvider\DebugBar::class => [],
 ];
 
 foreach ($service_providers as $service_provider => $opts) {
