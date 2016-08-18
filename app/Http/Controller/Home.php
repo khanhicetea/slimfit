@@ -9,6 +9,6 @@ class Home extends Base {
     }
 
     protected function hello($name) {
-        return $this->render('hello.htm', ['name' => $name]);
+        return $this->render('hello.html', ['name' => $name]);
     }
 }
