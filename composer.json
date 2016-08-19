@@ -1,7 +1,8 @@
 {
   "name": "khanhicetea/slimfit",
   "description": "PHP Web Framework based on Slim 3",
-  "minimum-stability": "stable",
+  "minimum-stability": "dev",
+  "prefer-stable": true,
   "license": "MIT",
   "authors": [
     {
@@ -21,12 +22,14 @@
     "willdurand/negotiation": "^2.0",
     "slim/twig-view": "^2.1",
     "illuminate/events": "~5.2",
-    "illuminate/database": "~5.2"
+    "illuminate/database": "~5.2",
+    "php-pm/php-pm": "dev-master"
   },
   "require-dev": {
     "maximebf/debugbar": "^1.11"
   },
   "autoload": {
+    "classmap": ["PpmBootstrap.php"],
     "psr-4": {
       "App\\": "app/",
       "App\\Tests\\": "tests/"
