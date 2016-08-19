@@ -29,7 +29,9 @@ $app = App\SlimFit::init([
 $service_providers = [
     App\ServiceProvider\Monolog::class => [],
     App\ServiceProvider\HttpKernel::class => [],
-    App\ServiceProvider\Twig::class => ['view.cache' => env('TWIG_CACHE', false)],
+
+    /* Twig template engine */
+    // App\ServiceProvider\Twig::class => ['view.cache' => env('TWIG_CACHE', false)],
 
     /* Eloquent */
     // App\ServiceProvider\Capsule::class => app('config.database'),

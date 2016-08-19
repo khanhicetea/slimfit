@@ -16,18 +16,6 @@ class HelloTest extends PHPUnit_Framework_TestCase {
         $request = Request::createFromEnvironment($env);
         $response = app()->process($request, new Response());
 
-        $this->assertEquals(302, $response->getStatusCode());
-    }
-
-    public function testHelloRoute() {
-        $env = Environment::mock([
-            'SCRIPT_NAME' => '/index.php',
-            'REQUEST_URI' => '/hello/SlimFit',
-            'REQUEST_METHOD' => 'GET',
-        ]);
-        $request = Request::createFromEnvironment($env);
-        $response = app()->process($request, new Response());
-
         $this->assertEquals(200, $response->getStatusCode());
     }
 }
