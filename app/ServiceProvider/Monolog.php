@@ -7,7 +7,6 @@ use Monolog\Logger;
 use Monolog\Processor\UidProcessor;
 use Monolog\Handler\StreamHandler;
 use App\Lib\ErrorHandler;
-use App\Lib\PhpErrorHandler;
 
 class Monolog implements ServiceProviderInterface {
     public function register(Container $container) {

@@ -8,8 +8,8 @@ class Kernel {
     protected $container;
     protected $booted = false;
     protected $route_path;
-    protected $app_middlewares;
-    protected $route_middlewares;
+    protected $app_middlewares = [];
+    protected $route_middlewares = [];
 
     public function __construct($container) {
         $this->container = $container;
@@ -24,13 +24,15 @@ class Kernel {
     }
     
     public function defaultAppMiddlewares() {
-        $this->app_middlewares = [
-            Middleware::responseTime(),
-        ];
+        $this->prependAppMiddleware(Middleware::trailingSlash()->redirect(301));
+        $this->prependAppMiddleware(Middleware::responseTime());
+        $this->prependAppMiddleware(Middleware::clientIp());
+        $this->prependAppMiddleware(Middleware::accessLog($this->container->get('logger'))->combined());
+        $this->prependAppMiddleware(Middleware::formatNegotiator()->defaultFormat('json'));
     }
 
     public function defaultRouteMiddlewares() {
-        $this->route_middlewares = [];
+        // define route middleware here
     }
 
     public function setRouteMiddleware($key, $middleware) {
