@@ -17,7 +17,7 @@ class PpmBridge implements BridgeInterface {
     public function bootstrap($appBootstrap, $appenv, $debug) {
         $this->bootstrap = new $appBootstrap($appenv, $debug);
         $this->app = $this->bootstrap->getApplication();
-		$this->app->getContainer()->get('kernel')->boot();
+        $this->app->getContainer()->get('kernel')->boot();
     }
 
     public function getStaticDirectory() {
