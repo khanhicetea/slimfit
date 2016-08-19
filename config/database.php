@@ -10,8 +10,8 @@ return [
             'password' => env('DB_PASSWORD', ''),
             'charset' => env('DB_CHARSET', 'utf8'),
             'collation' => env('DB_COLLATION', 'utf8_unicode_ci'),
-            'prefix' => '',
-            'logging' => false,
+            'prefix' => env('DB_PREFIX', ''),
+            'logging' => env('DB_LOG', false),
         ],
     ],
 ];
