@@ -25,9 +25,6 @@
     "illuminate/database": "~5.2",
     "php-pm/php-pm": "dev-master"
   },
-  "require-dev": {
-    "maximebf/debugbar": "^1.11"
-  },
   "autoload": {
     "classmap": ["PpmBootstrap.php"],
     "psr-4": {
