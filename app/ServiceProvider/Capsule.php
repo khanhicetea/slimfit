@@ -40,13 +40,21 @@ class Capsule implements ServiceProviderInterface
             return new Dispatcher($container['capsule.container']);
         };
 
+        $container['capsule.sql_parser'] = function () {
+            return function($sql) {
+                $bindings = array_map(function($binding) {
+                    return ($binding instanceof \DateTime) ? $binding->format('Y-m-d H:i:s') : (string) $binding;
+                }, $sql->bindings);
+
+                return sprintf("[%02.2f ms] < %s > %s", $sql->time, $sql->sql, json_encode($bindings));
+            };
+        };
+
         if (class_exists('Illuminate\Cache\CacheManager')) {
             $container['capsule.cache_manager'] = function () use ($container) {
                 return new CacheManager($container['capsule.container']);
             };
         }
-
-        $container['capsule.eloquent'] = true;
 
         $container['capsule'] = function ($container) {
             $capsule = new DB($container['capsule.container']);
@@ -75,6 +83,13 @@ class Capsule implements ServiceProviderInterface
 
                 if ($logging) {
                     $capsule->getConnection($connection)->enableQueryLog();
+                    if (isset($container['logger'])) {
+                        $logger = $container['logger'];
+                        $parser = $container['capsule.sql_parser'];
+                        $capsule->getConnection($connection)->listen(function($sql) use ($logger, $parser) {
+                            $logger->debug($parser($sql));
+                        });
+                    }
                 } else {
                     $capsule->getConnection($connection)->disableQueryLog();
                 }
