@@ -16,7 +16,6 @@ class Monolog implements ServiceProviderInterface
         $container['logger'] = function ($c) {
             $settings = $c->get('settings');
             $logger = new Logger($settings['logger']['name']);
-            $logger->pushProcessor(new UidProcessor());
             $logger->pushHandler(new StreamHandler($settings['logger']['path'], $settings['logger']['level']));
 
             return $logger;
