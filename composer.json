@@ -23,12 +23,12 @@
     "willdurand/negotiation": "^2.0",
     "slim/twig-view": "^2.1",
     "illuminate/events": "~5.2",
-    "illuminate/database": "~5.2",
-    "php-pm/php-pm": "dev-master"
+    "illuminate/database": "~5.2"
   },
   "suggest": {
     "tuupola/slim-jwt-auth": "PSR-7 JWT Authentication Middleware",
-    "league/fractal": "Fractal provides a presentation and transformation layer for complex data output, the like found in RESTful APIs, and works really well with JSON"
+    "league/fractal": "Fractal provides a presentation and transformation layer for complex data output, the like found in RESTful APIs, and works really well with JSON",
+    "php-pm/php-pm": "Bring High Performance Into Your PHP App (with ReactPHP)"
   },
   "autoload": {
     "classmap": ["PpmBootstrap.php"],
