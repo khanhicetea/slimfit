@@ -7,7 +7,6 @@ use Pimple\ServiceProviderInterface;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Container\Container;
 use Illuminate\Cache\CacheManager;
-use Illuminate\Database\Capsule\Manager;
 use App\DB;
 
 class Capsule implements ServiceProviderInterface
@@ -41,12 +40,12 @@ class Capsule implements ServiceProviderInterface
         };
 
         $container['capsule.sql_parser'] = function () {
-            return function($sql) {
-                $bindings = array_map(function($binding) {
+            return function ($sql) {
+                $bindings = array_map(function ($binding) {
                     return ($binding instanceof \DateTime) ? $binding->format('Y-m-d H:i:s') : (string) $binding;
                 }, $sql->bindings);
 
-                return sprintf("[%02.2f ms] < %s > %s", $sql->time, $sql->sql, json_encode($bindings));
+                return sprintf('[%02.2f ms] < %s > %s', $sql->time, $sql->sql, json_encode($bindings));
             };
         };
 
@@ -86,7 +85,7 @@ class Capsule implements ServiceProviderInterface
                     if (isset($container['logger'])) {
                         $logger = $container['logger'];
                         $parser = $container['capsule.sql_parser'];
-                        $capsule->getConnection($connection)->listen(function($sql) use ($logger, $parser) {
+                        $capsule->getConnection($connection)->listen(function ($sql) use ($logger, $parser) {
                             $logger->debug($parser($sql));
                         });
                     }

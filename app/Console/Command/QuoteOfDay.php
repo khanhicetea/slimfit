@@ -1,11 +1,13 @@
 <?php
+
 namespace App\Console\Command;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class QuoteOfDay extends Command {
+class QuoteOfDay extends Command
+{
     protected function configure()
     {
         $this

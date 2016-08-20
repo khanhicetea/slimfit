@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http;
 
 use PHPPM\Bridges\BridgeInterface;
@@ -10,27 +11,32 @@ use Slim\Http\Uri;
 use Slim\Http\Headers;
 use Slim\Http\Body;
 
-class PpmBridge implements BridgeInterface {
+class PpmBridge implements BridgeInterface
+{
     private $bootstrap;
     private $app;
 
-    public function bootstrap($appBootstrap, $appenv, $debug) {
+    public function bootstrap($appBootstrap, $appenv, $debug)
+    {
         $this->bootstrap = new $appBootstrap($appenv, $debug);
         $this->app = $this->bootstrap->getApplication();
         $this->app->getContainer()->get('kernel')->boot();
     }
 
-    public function getStaticDirectory() {
+    public function getStaticDirectory()
+    {
         return $this->bootstrap->getStaticDirectory();
     }
 
-    public function onRequest(Request $request, HttpResponse $response) {
+    public function onRequest(Request $request, HttpResponse $response)
+    {
         $slim_request = static::mapRequest($request);
         $slim_response = $this->app->process($slim_request, new SlimResponse());
         static::mapResponse($slim_response, $response);
     }
 
-    public static function mapRequest($react_request) {
+    public static function mapRequest($react_request)
+    {
         $headers = new Headers();
         foreach ($react_request->getHeaders() as $key => $value) {
             $headers->add($key, $value);
@@ -52,7 +58,8 @@ class PpmBridge implements BridgeInterface {
         return $request;
     }
 
-    public static function mapResponse($response, $react_response) {
+    public static function mapResponse($response, $react_response)
+    {
         $react_response->writeHead($response->getStatusCode(), $response->getHeaders());
         $react_response->end((string) $response->getBody());
     }

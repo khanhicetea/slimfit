@@ -1,4 +1,5 @@
 <?php
+
 $app = require __DIR__.'/bootstrap/app.php';
 
 $dsn = sprintf('%s:dbname=%s;host=%s;charset=%s', env('DB_DRIVER'), env('DB_DATABASE'),
@@ -14,8 +15,8 @@ return [
         'default_migration_table' => 'phinxlog',
         'default_database' => 'default',
         'default' => [
-            'name' =>  env('DB_DATABASE'),
+            'name' => env('DB_DATABASE'),
             'connection' => $pdo,
-        ]
+        ],
     ],
 ];

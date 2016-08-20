@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Tests;
 
 use PHPUnit_Framework_TestCase;
@@ -6,8 +7,10 @@ use Slim\Http\Request;
 use Slim\Http\Response;
 use Slim\Http\Environment;
 
-class HelloTest extends PHPUnit_Framework_TestCase {
-    public function testHomeRoute() {
+class HelloTest extends PHPUnit_Framework_TestCase
+{
+    public function testHomeRoute()
+    {
         $env = Environment::mock([
             'SCRIPT_NAME' => '/index.php',
             'REQUEST_URI' => '/',

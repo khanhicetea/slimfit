@@ -1,13 +1,16 @@
 <?php
+
 namespace App;
 
 use Slim\App as SlimApp;
 use Pimple\ServiceProviderInterface;
 
-class SlimFit extends SlimApp {
+class SlimFit extends SlimApp
+{
     private static $instance = null;
 
-    public static function init(array $opts = []) {
+    public static function init(array $opts = [])
+    {
         if (static::$instance == null) {
             static::$instance = new static($opts);
             static::$instance->loadConfig();
@@ -16,16 +19,20 @@ class SlimFit extends SlimApp {
         return static::$instance;
     }
 
-    public static function getInstance() {
+    public static function getInstance()
+    {
         return static::$instance;
     }
 
-    public static function getKey($key = null) {
+    public static function getKey($key = null)
+    {
         $instance = static::$instance;
+
         return $key ? $instance->getContainer()->get($key) : $instance->getContainer();
     }
 
-    public function loadConfig() {
+    public function loadConfig()
+    {
         $container = $this->getContainer();
         foreach (glob(config_path().'/*.php') as $file) {
             $config = is_readable($file) ? (require $file) : [];
@@ -34,7 +41,8 @@ class SlimFit extends SlimApp {
         }
     }
 
-    public function register(ServiceProviderInterface $service, array $opts = []) {
+    public function register(ServiceProviderInterface $service, array $opts = [])
+    {
         $this->getContainer()->register($service, $opts);
     }
 }
