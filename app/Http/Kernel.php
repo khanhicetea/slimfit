@@ -28,11 +28,11 @@ class Kernel
 
     public function defaultAppMiddlewares()
     {
-        $this->prependAppMiddleware(Middleware::trailingSlash()->redirect(301));
-        $this->prependAppMiddleware(Middleware::responseTime());
-        $this->prependAppMiddleware(Middleware::clientIp());
-        $this->prependAppMiddleware(Middleware::accessLog($this->container->get('logger'))->combined());
-        $this->prependAppMiddleware(Middleware::formatNegotiator()->defaultFormat('json'));
+        $this->appendAppMiddleware(Middleware::formatNegotiator()->defaultFormat('json'));
+        $this->appendAppMiddleware(Middleware::accessLog($this->container->get('logger'))->combined());
+        $this->appendAppMiddleware(Middleware::clientIp());
+        $this->appendAppMiddleware(Middleware::responseTime());
+        $this->appendAppMiddleware(Middleware::trailingSlash()->redirect(301));
     }
 
     public function defaultRouteMiddlewares()
